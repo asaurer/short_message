@@ -1,0 +1,12 @@
+de:
+  short_message:
+    status:
+      code_1: "zugestellt"
+      code_2: "Fehler"
+      code_3: "kein Guthaben"
+      code_4: "zwischengespeichert"
+      code_8: "anerkannt"
+      code_9: "gesendet"
+      code_16: "abgewiesen"
+      code_99: "Aufladen fehlgeschlagen"
+      code_100: "erstellt"
