@@ -1,5 +1,5 @@
-# ShortMessage
-## Installation
+# ShortMessage #
+## Installation ##
 
 Add it to your Gemfile:
 
@@ -22,4 +22,11 @@ rails generate short_message:install
 And rake the migrations:
 ```console
 rake db:migrate
+```
+## Usage ##
+
+Create a message and deliver it:
+```ruby
+@sms = ShortMessage::Message.new(:sender => "0041791234567", :recipient => "0041799876543", :text => "Hello World!")
+@sms.deliver
 ```
