@@ -6,6 +6,8 @@ module ShortMessage
       
       def copy_config
         template "config/initializers/short_message.rb"
+        template "config/locales/short_message.de.yml"
+        template "config/locales/short_message.en.yml"
       end
     end
   end
