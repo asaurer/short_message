@@ -38,25 +38,27 @@ module ShortMessage
     end
     
     def recharge amount = ShortMessage.config.default_reload_amount
-      http = Net::HTTP.new(ShortMessage.config.gateway_server)
-      response, body = http.post(ShortMessage.config.account_functions_path, build_recharge_params_string(amount))
+      unless ShortMessage.config.account_functions_path.blank?
+        http = Net::HTTP.new(ShortMessage.config.gateway_server)
+        response, body = http.post(ShortMessage.config.account_functions_path, build_recharge_params_string(amount))
       
-      if response.code == "200"
-        # returns something like 0:Successful
-        result_set = response.body.split(":")
+        if response.code == "200"
+          # returns something like 0:Successful
+          result_set = response.body.split(":")
       
-        if result_set[0] == "0"
-          logger.info "SMS account successfully charged with #{amount} sms."
-          Mailer.recharge_notification(amount).deliver unless ShortMessage.config.reload_notification_email.blank?
-          Mailer.voucher_notification(amount).deliver unless ShortMessage.config.voucher_notification_email.blank?
-          true
-        else
-          logger.warn "SMS account could not be recharged with #{amount} sms. Error: #{body}"
-          Mailer.recharge_failed_notification(amount, body).deliver unless ShortMessage.config.reload_notification_email.blank?
-          false
+          if result_set[0] == "0"
+            logger.info "SMS account successfully charged with #{amount} sms."
+            Mailer.recharge_notification(amount).deliver unless ShortMessage.config.reload_notification_email.blank?
+            Mailer.voucher_notification(amount).deliver unless ShortMessage.config.voucher_notification_email.blank?
+            true
+          else
+            logger.warn "SMS account could not be recharged with #{amount} sms. Error: #{body}"
+            Mailer.recharge_failed_notification(amount, body).deliver unless ShortMessage.config.reload_notification_email.blank?
+            false
+          end
+        else                                
+          "#{response.code} #{response.message}"
         end
-      else                                
-        "#{response.code} #{response.message}"
       end
     end
     
