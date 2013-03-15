@@ -10,7 +10,9 @@ module ShortMessage
     end
     
     def deliver
-      unless self.sender.blank? and self.recipient.blank? and self.text.blank?
+      self.sender = ShortMessage.config.default_sms_sender if self.sender.blank?
+      
+      unless self.recipient.blank? and self.text.blank?
         http = Net::HTTP.new(ShortMessage.config.gateway_server)
         response, data = http.post(ShortMessage.config.send_file_path, build_deliver_params_string)
         

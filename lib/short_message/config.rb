@@ -20,6 +20,7 @@ module ShortMessage
     config_accessor :ccu_id
     config_accessor :id_string
     
+    config_accessor :default_sms_sender
     config_accessor :default_reload_amount
     config_accessor :reload_notification_email
     config_accessor :voucher_notification_email
