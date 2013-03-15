@@ -1,12 +1,7 @@
 en:
   short_message:
     status:
-      code_1: "delivered"
-      code_2: "error"
-      code_3: "recharge needed"
-      code_4: "cached"
-      code_8: "accepted"
-      code_9: "sent"
-      code_16: "rejected"
-      code_99: "recharging failed"
-      code_100: "created"
+      code_1: "absent subscriber"
+      code_3: "accepted"
+      code_7: "delivered"
+      code_18: "rejected"
