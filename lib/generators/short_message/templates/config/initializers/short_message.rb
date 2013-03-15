@@ -9,10 +9,10 @@ ShortMessage.configure do |config|
   config.user_id = ""
   config.ccu_id = ""
   config.id_string = ""
-      
+  
   config.default_reload_amount = 1000
   
   config.default_mail_sender = "webmaster@your-domain.com"
   config.reload_notification_email = "webmaster@your-domain.com"
-  config.voucher_notification_email = "give-me-money@your-domain.com"
+  config.voucher_notification_email = "give-me-money@your-domain.com" # set nil to disable voucher mailing
 end
