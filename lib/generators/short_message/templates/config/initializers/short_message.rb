@@ -1,6 +1,6 @@
 ShortMessage.configure do |config|
   config.gateway_server = "www1.q-x.ch"
-  config.gateway_port = "443"
+  config.gateway_port = 80
   
   config.send_file_path = "/app/sms/gw1/cust/send.php"
   config.account_functions_path = "/app/sms/gw1/cust/accfunc.php"  

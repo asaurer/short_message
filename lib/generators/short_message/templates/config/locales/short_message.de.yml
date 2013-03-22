@@ -3,5 +3,12 @@ de:
     status:
       code_1: "Empfänger abwesend"
       code_3: "anerkannt"
+      code_5: "anruf blockiert"
+      code_6: "MSC Fehler"
       code_7: "zugestellt"
       code_18: "abgewiesen"
+      code_20: "nicht verfügbar während Roaming"
+      code_21: "unerwarteter Wert"
+      code_22: "unbekannter Abonnent"
+      code_99: "Aufladen fehlgeschlagen"
+      code_999: "unkategorisierter Status"

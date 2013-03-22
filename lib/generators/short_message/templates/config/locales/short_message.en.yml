@@ -3,5 +3,12 @@ en:
     status:
       code_1: "absent subscriber"
       code_3: "accepted"
+      code_5: "call barred"
+      code_6: "controlling MSC failure"
       code_7: "delivered"
-      code_18: "rejected"
+      code_18: "rejected by gateway"
+      code_20: "unavailable while roaming to"
+      code_21: "unexpected data value"
+      code_22: "unknown subscriber"
+      code_99: "recharge failed"
+      code_999: "uncategorized status"
