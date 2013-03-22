@@ -1,5 +1,4 @@
 require "net/http"
-require "net/https"
 
 module ShortMessage
   class Message < ActiveRecord::Base
@@ -13,11 +12,11 @@ module ShortMessage
       self.sender = ShortMessage.config.default_sms_sender if self.sender.blank?
       
       unless self.recipient.blank? and self.text.blank?
-        http = Net::HTTP.new(ShortMessage.config.gateway_server)
+        http = Net::HTTP.new(ShortMessage.config.gateway_server, ShortMessage.config.gateway_port)
         response, data = http.post(ShortMessage.config.send_file_path, build_deliver_params_string)
         
         if response.code == "200"
-          # returns something like 0:200: OK (<mobilenumber>:<msgid>):<msgid>
+          # returns something like 0:200: OK (<mobilenumber>:<msgid>)
           result_set = response.body.gsub("(","").gsub(")","").split(":")
           self.status_code = result_set[0].to_i
           self.message_key = result_set[3] unless result_set[3].blank?
@@ -48,7 +47,7 @@ module ShortMessage
           # returns something like 0:Successful
           result_set = response.body.split(":")
       
-          if result_set[0] == "0"
+          if result_set[0].to_i == 0
             logger.info "SMS account successfully charged with #{amount} sms."
             Mailer.recharge_notification(amount).deliver unless ShortMessage.config.reload_notification_email.blank?
             Mailer.voucher_notification(amount).deliver unless ShortMessage.config.voucher_notification_email.blank?
@@ -58,7 +57,7 @@ module ShortMessage
             Mailer.recharge_failed_notification(amount, body).deliver unless ShortMessage.config.reload_notification_email.blank?
             false
           end
-        else                                
+        else
           "#{response.code} #{response.message}"
         end
       end
@@ -72,7 +71,8 @@ module ShortMessage
       params << "ID=#{ShortMessage.config.id_string}"
       params << "sender=#{CGI.escape(self.sender)}"
       params << "receipient=#{CGI.escape(self.recipient)}"
-      params << "message=#{CGI.escape(self.text.encode('ISO-8859-1', 'utf-8'))}"
+      params << "message=#{CGI.escape(self.text)}"
+      params << "utf-8=1"
       params.join("&")
     end
     
