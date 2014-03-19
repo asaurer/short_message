@@ -3,7 +3,7 @@ module ShortMessage
     isolate_namespace ShortMessage
     
     initializer "short_message.migrate_database" do |app|
-      Rails.application.config.paths['db/migrate'] += paths['db/migrate'].existent
+      Rails.application.config.paths['db/migrate'] << paths['db/migrate'].existent
     end
     
     config.generators do |g|

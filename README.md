@@ -1,4 +1,7 @@
 # ShortMessage #
+
+[![Gem Version](https://badge.fury.io/rb/short_message.png)](http://badge.fury.io/rb/short_message)
+
 ## Installation ##
 
 Add it to your Gemfile:
