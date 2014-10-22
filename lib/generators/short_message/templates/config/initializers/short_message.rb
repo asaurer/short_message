@@ -14,6 +14,7 @@ ShortMessage.configure do |config|
 
   config.default_mail_sender = "webmaster@your-domain.com"
   config.reload_notification_email = "webmaster@your-domain.com"
+  config.admin_notification_email = "webmaster@your-domain.com" # set to blank to deactivate error mailing
   config.voucher_notification_email = "give-me-money@your-domain.com" # set nil to disable voucher mailing
 
   # set a default sms sender (used if no sender is present)

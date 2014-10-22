@@ -37,6 +37,7 @@ module ShortMessage
           self.save
           true
         else
+          Mailer.error_notification(self, response).deliver unless ShortMessage.config.admin_notification_email.blank?
           false
         end
       end
