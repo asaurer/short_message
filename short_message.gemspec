@@ -8,22 +8,16 @@ Gem::Specification.new do |s|
   s.name        = "short_message"
   s.version     = ShortMessage::VERSION
   s.authors     = ["Andi Saurer"]
-  s.email       = ["andi@saurer.me"]
-  s.homepage    = "https://github.com/qinglong15/short_message"
-  s.summary     = "Send short messages to a specific SMS Gateway"
-  s.description = "Send short messages to a specific SMS Gateway"
+  s.email       = ["andreas.saurer@econ.uzh.ch"]
+  s.homepage    = "TODO"
+  s.summary     = "TODO: Summary of ShortMessage."
+  s.description = "TODO: Description of ShortMessage."
+  s.license     = "MIT"
 
-  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.md"]
-  s.test_files = Dir["spec/**/*"]
+  s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
+  s.test_files = Dir["test/**/*"]
 
-  s.add_dependency "rails", "> 3.2.12"
-  # s.add_dependency "jquery-rails"
+  s.add_dependency "rails", "~> 4.2.6"
 
   s.add_development_dependency "mysql2"
-  s.add_development_dependency "rspec-rails"
-  s.add_development_dependency "capybara"
-  s.add_development_dependency "factory_girl_rails"
-  s.add_development_dependency "guard-rspec"
-  s.add_development_dependency "rb-fsevent"
-  s.add_development_dependency "growl"
 end
