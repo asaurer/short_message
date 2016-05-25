@@ -1,0 +1,8 @@
+en:
+  short_message:
+    status:
+      code_1: "Delivered to phone"
+      code_2: "Not delivered to phone"
+      code_4: "Queued on SMSC"
+      code_8: "Delivered to SMSC"
+      code_16: "Not delivered to SMSC"

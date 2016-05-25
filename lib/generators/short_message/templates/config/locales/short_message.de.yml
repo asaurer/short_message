@@ -1,0 +1,8 @@
+de:
+  short_message:
+    status:
+      code_1: "An Telefon zugestellt"
+      code_2: "Nicht an Telefon zugestellt"
+      code_4: "Bei SMSC in Warteschlange"
+      code_8: "Zugestellt an SMSC"
+      code_16: "Nicht zugestellt an SMSC"
