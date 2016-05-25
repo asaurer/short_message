@@ -4,16 +4,24 @@ module ShortMessage
   class MessagesController < ApplicationController
     def status
       unless params[:id].blank? or params[:status].blank?
-        if message = ShortMessage::Message.find_by(message_key: params[:id])
+        if message = ShortMessage::Message.where(message_key: params[:id]).first
           message.status_code = params[:status]
           message.save!
 
-          render plain: "Message #{params[:id]} has now status #{params[:status]}"
+          message = "Message #{params[:id]} has now status #{params[:status]}"
         else
-          render plain: "Message #{params[:id]} not found!", status: 404
+          message = "Message #{params[:id]} not found!"
+          status = 404
         end
       else
-        render plain: "Message ID or status not provided!", status: 400
+        message = "Message ID or status not provided!"
+        status = 400
+      end
+
+      if Rails.version[0].to_i > 4
+        render plain: message, status: status
+      else
+        render text: message, status: status
       end
     end
   end
