@@ -11,15 +11,15 @@ module ShortMessage
         end
 
         response, data = http.post(ShortMessage.config.send_file_path, build_deliver_params_string)
+        result_set = response.body.gsub("(","").gsub(")","").split(" ")
+        response_code = result_set[0].to_i
 
-        if response.code == "200" or response.code == "402"
-          if response.code == "402" and not ShortMessage.config.reload_notification_email.blank?
+        if response_code == 200 or response_code == 402
+          if response_code == 402 and not ShortMessage.config.reload_notification_email.blank?
             ShortMessage::Mailer.payment_required_notification(self, response).deliver_now
           end
 
-          result_set = response.body.gsub("(","").gsub(")","").split(" ")
           self.message_key = result_set[2] unless result_set[2].blank?
-
           return self.save
         else
           ShortMessage::Mailer.error_notification(self, response).deliver_now unless ShortMessage.config.admin_notification_email.blank?
