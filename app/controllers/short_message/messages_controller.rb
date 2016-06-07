@@ -8,6 +8,7 @@ module ShortMessage
           message.status_code = params[:status]
           message.save!
 
+          ActiveSupport::Notifications.instrument('short_message.status_updated', options: { key: params[:id], status: params[:status] })
           message = "Message #{params[:id]} has now status #{params[:status]}"
         else
           message = "Message #{params[:id]} not found!"

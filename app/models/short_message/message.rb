@@ -20,6 +20,7 @@ module ShortMessage
           end
 
           self.message_key = result_set[2] unless result_set[2].blank?
+          ActiveSupport::Notifications.instrument('short_message.delivered', options: { key: (result_set[2] unless result_set[2].blank?) })
           return self.save
         else
           ShortMessage::Mailer.error_notification(self, response).deliver_now unless ShortMessage.config.admin_notification_email.blank?

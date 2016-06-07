@@ -37,6 +37,10 @@ Create a message and deliver it:
 @sms.deliver
 ```
 
+## Delivery Report
+
+ShortMessage listens for status updates on `/short_message/messages/status`. Provide `:id` and `:status` by either `POST` or `GET`.
+
 ## Customization
 
 ### Status Codes
@@ -57,5 +61,15 @@ ShortMessage::Message.module_eval do
   def build_recharge_params_string amount
     # your code here
   end
+end
+```
+
+### Events
+
+ShortMessage sends event notifications on message delivery `short_message.delivered` and on status update `short_message.status_updated`. Add following code to an initializer to listen:
+
+```ruby
+ActiveSupport::Notifications.subscribe('short_message.status_updated') do |name, start, finish, id, payload|
+  Activity.create(successful: true, message: "Message #{payload[:options][:key]} has now status #{payload[:options][:status]}.")
 end
 ```
