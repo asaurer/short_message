@@ -1,8 +1,9 @@
 module ShortMessage
   class Message < ActiveRecord::Base
     def deliver
-      self.sender = ShortMessage.config.default_sms_sender if self.sender.blank?
+      deliver_method = Rails.version.to_f > 4.2 ? "deliver_now" : "deliver"
 
+      self.sender = ShortMessage.config.default_sms_sender if self.sender.blank?
       unless self.recipient.blank? and self.text.blank?
         http = Net::HTTP.new(ShortMessage.config.gateway_server, ShortMessage.config.gateway_port)
         if ShortMessage.config.gateway_port == Net::HTTP.https_default_port()
@@ -16,14 +17,14 @@ module ShortMessage
 
         if response_code == 200 or response_code == 402
           if response_code == 402 and not ShortMessage.config.reload_notification_email.blank?
-            ShortMessage::Mailer.payment_required_notification(self, response).deliver_now
+            eval "ShortMessage::Mailer.payment_required_notification().#{deliver_method}"
           end
 
           self.message_key = result_set[2] unless result_set[2].blank?
           ActiveSupport::Notifications.instrument('short_message.delivered', options: { key: (result_set[2] unless result_set[2].blank?) })
           return self.save
         else
-          ShortMessage::Mailer.error_notification(self, response).deliver_now unless ShortMessage.config.admin_notification_email.blank?
+          eval "ShortMessage::Mailer.error_notification(self, response).#{deliver_method}" unless ShortMessage.config.admin_notification_email.blank?
         end
       else
         return false
