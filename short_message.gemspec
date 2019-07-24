@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.version     = ShortMessage::VERSION
   s.authors     = ["Andi Saurer"]
   s.email       = ["andreas.saurer@econ.uzh.ch"]
-  s.homepage    = "https://gitlab.switch.ch/econ-engineering/short_message"
+  s.homepage    = "https://github.com/asaurer/short_message"
   s.summary     = "Send short messages to a specific SMS Gateway"
   s.description = "Send short messages to a specific SMS Gateway"
   s.license     = "MIT"
